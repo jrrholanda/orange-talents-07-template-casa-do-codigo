@@ -1,5 +1,6 @@
 package br.com.zup.casadocodigo.autor;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -9,7 +10,7 @@ public class AutorResponse {
     private String nome;
     private String email;
     private String descricao;
-    private Date data;
+    private LocalDateTime data;
 
     public AutorResponse(Autor autor) {
         this.nome = autor.getNome();
@@ -32,8 +33,7 @@ public class AutorResponse {
         return descricao;
     }
 
-    public Date getData() {
+    public LocalDateTime getData() {
         return data;
     }
-
 }

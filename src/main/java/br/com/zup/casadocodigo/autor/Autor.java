@@ -6,6 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -17,13 +18,16 @@ public class Autor {
     private String nome;
     @NotBlank @Email
     private String email;
-    @Size(max=400)
+    @NotBlank @Size(max=400)
     private String descricao;
     @CreationTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createDate;
+    private LocalDateTime createDate;
 
-    public Autor(@NotBlank String nome, @NotBlank @Email String email, @Size(max=400) String descricao) {
+    @Deprecated
+    public Autor() {
+    }
+
+    public Autor(@NotBlank String nome, @NotBlank @Email String email, @NotBlank @Size(max=400) String descricao) {
         this.nome = nome;
         this.email = email;
         this.descricao = descricao;
@@ -45,7 +49,7 @@ public class Autor {
         return descricao;
     }
 
-    public Date getCreateDate() {
+    public LocalDateTime getCreateDate() {
         return createDate;
     }
 }

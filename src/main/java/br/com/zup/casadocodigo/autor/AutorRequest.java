@@ -10,17 +10,26 @@ public class AutorRequest {
     private String nome;
     @NotBlank @Email
     private String email;
-    @Size(max=400)
+    @NotBlank @Size(max=400)
     private String descricao;
 
-//    @Deprecated
-//    public AutorRequest() {
-//    }
 
-    public AutorRequest(@NotBlank String nome, @NotBlank @Email String email, @Size(max=400) String descricao) {
+    public AutorRequest(@NotBlank String nome, @NotBlank @Email String email, @NotBlank @Size(max=400) String descricao) {
         this.nome = nome;
         this.email = email;
         this.descricao = descricao;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getDescricao() {
+        return descricao;
     }
 
     public Autor toModel (){

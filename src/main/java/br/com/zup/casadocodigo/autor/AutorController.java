@@ -2,6 +2,7 @@ package br.com.zup.casadocodigo.autor;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
@@ -15,6 +16,14 @@ public class AutorController {
     @Autowired
     AutorRepository repository;
 
+    @Autowired
+    private EmailUnicoValidator emailUnicoValidator;
+
+    @InitBinder
+    public void init (WebDataBinder binder){
+        binder.addValidators(emailUnicoValidator);
+    }
+
     @PostMapping
     @Transactional
     public ResponseEntity<AutorResponse> criaAutor (@RequestBody @Valid AutorRequest autorRequest) {
@@ -26,5 +35,5 @@ public class AutorController {
             return ResponseEntity.badRequest().build();
         }
     }
-    
+
 }
