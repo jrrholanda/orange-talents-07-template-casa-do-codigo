@@ -6,6 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
@@ -13,22 +15,14 @@ import javax.validation.Valid;
 @RequestMapping("/categoria")
 public class CategoriaController {
 
-    @Autowired
-    CategoriaRepository repository;
-
-    @Autowired
-    private NomeUnicoCategoria nomeUnicoCategoria;
-
-    @InitBinder
-    public void init (WebDataBinder binder){
-        binder.addValidators(nomeUnicoCategoria);
-    }
+    @PersistenceContext
+    private EntityManager manager;
 
     @PostMapping
     @Transactional
     public ResponseEntity<CategoriaResponse> criaAutor (@RequestBody @Valid CategoriaRequest categoriaRequest) {
         Categoria categoria = categoriaRequest.toModel();
-        repository.save(categoria);
+        manager.persist(categoria);
         try {
             return ResponseEntity.ok().body(new CategoriaResponse(categoria));
         } catch (Exception e) {

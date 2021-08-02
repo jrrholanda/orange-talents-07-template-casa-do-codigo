@@ -1,10 +1,13 @@
 package br.com.zup.casadocodigo.categoria;
 
+import br.com.zup.casadocodigo.autor.Autor;
+import br.com.zup.casadocodigo.validacao.UniqueValue;
+
 import javax.validation.constraints.NotBlank;
 
 public class CategoriaRequest {
 
-    @NotBlank
+    @NotBlank @UniqueValue(domainClass = Categoria.class, fieldName = "nome")
     private String nome;
 
     public CategoriaRequest(@NotBlank String nome) {

@@ -1,5 +1,7 @@
 package br.com.zup.casadocodigo.autor;
 
+import br.com.zup.casadocodigo.validacao.UniqueValue;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -8,7 +10,7 @@ public class AutorRequest {
 
     @NotBlank
     private String nome;
-    @NotBlank @Email
+    @NotBlank @Email @UniqueValue(domainClass = Autor.class, fieldName = "email")
     private String email;
     @NotBlank @Size(max=400)
     private String descricao;
@@ -18,18 +20,6 @@ public class AutorRequest {
         this.nome = nome;
         this.email = email;
         this.descricao = descricao;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getDescricao() {
-        return descricao;
     }
 
     public Autor toModel (){

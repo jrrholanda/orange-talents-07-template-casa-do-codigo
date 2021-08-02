@@ -5,6 +5,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.util.List;
@@ -13,22 +15,14 @@ import java.util.List;
 @RequestMapping("/autor")
 public class AutorController {
 
-    @Autowired
-    AutorRepository repository;
-
-    @Autowired
-    private EmailUnicoValidator emailUnicoValidator;
-
-    @InitBinder
-    public void init (WebDataBinder binder){
-        binder.addValidators(emailUnicoValidator);
-    }
+    @PersistenceContext
+    private EntityManager manager;
 
     @PostMapping
     @Transactional
     public ResponseEntity<AutorResponse> criaAutor (@RequestBody @Valid AutorRequest autorRequest) {
         Autor autor = autorRequest.toModel();
-        repository.save(autor);
+        manager.persist(autor);
         try {
             return ResponseEntity.ok().body(new AutorResponse(autor));
         } catch (Exception e) {
