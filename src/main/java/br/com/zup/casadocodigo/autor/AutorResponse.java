@@ -15,4 +15,20 @@ public class AutorResponse {
         this.descricao = autor.getDescricao();
         this.data = autor.getCreateDate();
     }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public LocalDateTime getData() {
+        return data;
+    }
 }

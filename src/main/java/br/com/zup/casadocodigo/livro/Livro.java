@@ -2,6 +2,7 @@ package br.com.zup.casadocodigo.livro;
 
 import br.com.zup.casadocodigo.autor.Autor;
 import br.com.zup.casadocodigo.categoria.Categoria;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -26,7 +27,7 @@ public class Livro {
     private Integer qtdPaginas;
     @NotBlank
     private String isbn;
-    @CreationTimestamp @Future
+    @Future @NotNull
     private LocalDate data;
     @NotNull @ManyToOne
     private Categoria categoria;
@@ -39,7 +40,7 @@ public class Livro {
 
     public Livro(@NotBlank String titulo, @NotBlank @Size(max = 500) String resumo, @NotBlank String sumario,
                  @NotNull @Min(20) Float preco, @NotNull @Min(100) Integer qtdPaginas, @NotBlank String isbn,
-                 @Future LocalDate data, @NotNull Categoria categoria, @NotNull Autor autor) {
+                 @Future @NotNull LocalDate data, @NotNull Categoria categoria, @NotNull Autor autor) {
         this.titulo = titulo;
         this.resumo = resumo;
         this.sumario = sumario;
@@ -49,6 +50,10 @@ public class Livro {
         this.data = data;
         this.categoria = categoria;
         this.autor = autor;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getTitulo() {
