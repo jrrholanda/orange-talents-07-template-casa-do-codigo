@@ -2,8 +2,6 @@ package br.com.zup.casadocodigo.livro;
 
 import br.com.zup.casadocodigo.autor.Autor;
 import br.com.zup.casadocodigo.categoria.Categoria;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -91,4 +89,5 @@ public class Livro {
     public Autor getAutor() {
         return autor;
     }
+
 }

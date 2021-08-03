@@ -1,5 +1,6 @@
 package br.com.zup.casadocodigo.livro;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,6 +33,16 @@ public class LivroController {
     public List<ListaLivrosResponse> getAll(){
         List<Livro> livros = manager.createQuery("select a from Livro a").getResultList();
         return ListaLivrosResponse.converter(livros);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<LivroResponse> getById(@PathVariable long id){
+        Livro livro = manager.find(Livro.class, id);
+        try {
+            return ResponseEntity.ok().body(new LivroResponse(livro));
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 }
