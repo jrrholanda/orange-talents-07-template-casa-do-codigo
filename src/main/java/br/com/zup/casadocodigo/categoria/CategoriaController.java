@@ -1,9 +1,6 @@
 package br.com.zup.casadocodigo.categoria;
 
-import br.com.zup.casadocodigo.autor.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
@@ -20,7 +17,7 @@ public class CategoriaController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<CategoriaResponse> criaAutor (@RequestBody @Valid CategoriaRequest categoriaRequest) {
+    public ResponseEntity<CategoriaResponse> post (@RequestBody @Valid CategoriaRequest categoriaRequest) {
         Categoria categoria = categoriaRequest.toModel();
         manager.persist(categoria);
         try {
