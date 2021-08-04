@@ -14,7 +14,7 @@ public class LivroResponse {
     private String isbn;
     private LocalDate data;
     private DetalheAutorResponse detalheAutor;
-    
+
     public LivroResponse(Livro livro) {
         this.titulo = livro.getTitulo();
         this.resumo = livro.getResumo();
