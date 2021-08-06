@@ -1,4 +1,4 @@
-package br.com.zup.casadocodigo.estado;
+package br.com.zup.casadocodigo.cliente;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -9,38 +9,31 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
-import java.util.List;
 
 @RestController
-@RequestMapping("/estado")
-public class EstadoController {
+@RequestMapping("/cliente")
+public class ClienteController {
 
     @PersistenceContext
     private EntityManager manager;
 
     @Autowired
-    private EstadoUnicoEmPais estadoUnicoEmPais;
+    private ExisteEstadoNoPais existeEstadoNoPais;
 
     @InitBinder
     public void init(WebDataBinder binder){
-        binder.addValidators(estadoUnicoEmPais);
+        binder.addValidators(existeEstadoNoPais);
     }
 
     @PostMapping
     @Transactional
-    public ResponseEntity<EstadoResponse> post (@RequestBody @Valid EstadoRequest estadoRequest) {
-        Estado estado = estadoRequest.toModel(manager);
-        manager.persist(estado);
+    public ResponseEntity<ClienteResponse> post (@RequestBody @Valid ClienteRequest clienteRequest) {
+        Cliente cliente = clienteRequest.toModel(manager);
+        manager.persist(cliente);
         try {
-            return ResponseEntity.ok().body(new EstadoResponse(estado));
+            return ResponseEntity.ok().body(new ClienteResponse(cliente));
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }
-    }
-
-    @GetMapping
-    public List<Estado> getAll(){
-        List<Estado> estados = manager.createQuery("select a from Estado a").getResultList();
-        return estados;
     }
 }

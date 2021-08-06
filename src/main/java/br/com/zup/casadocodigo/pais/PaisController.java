@@ -4,15 +4,13 @@ import br.com.zup.casadocodigo.pais.Pais;
 import br.com.zup.casadocodigo.pais.PaisRequest;
 import br.com.zup.casadocodigo.pais.PaisResponse;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/pais")
@@ -31,6 +29,12 @@ public class PaisController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }
+    }
+
+    @GetMapping
+    public List<Pais> getAll(){
+        List<Pais> paises = manager.createQuery("select a from Pais a").getResultList();
+        return paises;
     }
 
 }

@@ -1,6 +1,7 @@
 package br.com.zup.casadocodigo.autor;
 
 import br.com.zup.casadocodigo.validacao.UniqueValue;
+import com.fasterxml.jackson.annotation.JsonCreator;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -15,7 +16,7 @@ public class AutorRequest {
     @NotBlank @Size(max=400)
     private String descricao;
 
-
+    @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
     public AutorRequest(@NotBlank String nome, @NotBlank @Email String email, @NotBlank @Size(max=400) String descricao) {
         this.nome = nome;
         this.email = email;

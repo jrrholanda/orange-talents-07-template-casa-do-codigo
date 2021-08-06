@@ -4,6 +4,7 @@ import br.com.zup.casadocodigo.autor.Autor;
 import br.com.zup.casadocodigo.categoria.Categoria;
 import br.com.zup.casadocodigo.validacao.ExistsId;
 import br.com.zup.casadocodigo.validacao.UniqueValue;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -33,6 +34,7 @@ public class LivroRequest {
     @NotNull @ExistsId(domainClass = Autor.class, fieldName = "id")
     private Long idAutor;
 
+    @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
     public LivroRequest(String titulo, String resumo, String sumario, Float preco, Integer qtdPaginas, String isbn, Long idCategoria, Long idAutor) {
         this.titulo = titulo;
         this.resumo = resumo;

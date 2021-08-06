@@ -15,6 +15,7 @@ public class LivroResponse {
     private LocalDate data;
     private DetalheAutorResponse detalheAutor;
 
+
     public LivroResponse(Livro livro) {
         this.titulo = livro.getTitulo();
         this.resumo = livro.getResumo();
